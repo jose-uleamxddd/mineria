@@ -1,0 +1,29 @@
+{
+  "name": "circuit-breakers-microservices",
+  "version": "1.0.0",
+  "description": "Proyecto educativo de patrones de resiliencia en microservicios",
+  "scripts": {
+    "install-all": "cd api-gateway && npm install && cd ../servicio-pedidos && npm install && cd ../servicio-pagos && npm install",
+    "start": "concurrently \"npm run start:pagos\" \"npm run start:pedidos\" \"npm run start:gateway\"",
+    "start:gateway": "cd api-gateway && npm start",
+    "start:pedidos": "cd servicio-pedidos && npm start",
+    "start:pagos": "cd servicio-pagos && npm start",
+    "dev": "concurrently \"npm run dev:pagos\" \"npm run dev:pedidos\" \"npm run dev:gateway\"",
+    "dev:gateway": "cd api-gateway && npm run dev",
+    "dev:pedidos": "cd servicio-pedidos && npm run dev",
+    "dev:pagos": "cd servicio-pagos && npm run dev",
+    "test": "node test-scripts/test-resilience.js"
+  },
+  "keywords": [
+    "microservices",
+    "resilience",
+    "circuit-breaker",
+    "nodejs",
+    "educativo"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

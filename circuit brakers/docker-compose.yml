@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  # Servicio de Pagos (Inestable)
+  servicio-pagos:
+    build: ./servicio-pagos
+    container_name: servicio-pagos
+    ports:
+      - "3002:3002"
+    environment:
+      - PORT=3002
+      - NODE_ENV=production
+    networks:
+      - microservices-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3002/pagos/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Servicio de Pedidos
+  servicio-pedidos:
+    build: ./servicio-pedidos
+    container_name: servicio-pedidos
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - PAYMENT_SERVICE_URL=http://servicio-pagos:3002
+      - NODE_ENV=production
+    depends_on:
+      - servicio-pagos
+    networks:
+      - microservices-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # API Gateway (Con Resiliencia)
+  api-gateway:
+    build: ./api-gateway
+    container_name: api-gateway
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - ORDERS_SERVICE_URL=http://servicio-pedidos:3001
+      - PAYMENT_SERVICE_URL=http://servicio-pagos:3002
+      - NODE_ENV=production
+    depends_on:
+      - servicio-pedidos
+      - servicio-pagos
+    networks:
+      - microservices-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  microservices-network:
+    driver: bridge
+
+# Para ejecutar:
+# docker-compose up --build
+#
+# Para detener:
+# docker-compose down

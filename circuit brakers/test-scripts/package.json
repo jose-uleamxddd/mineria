@@ -1,0 +1,11 @@
+{
+  "name": "test-scripts",
+  "version": "1.0.0",
+  "description": "Scripts de prueba para patrones de resiliencia",
+  "scripts": {
+    "test": "node test-resilience.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.2"
+  }
+}

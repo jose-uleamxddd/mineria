@@ -1,0 +1,19 @@
+{
+  "name": "servicio-pagos",
+  "version": "1.0.0",
+  "description": "Servicio de pagos inestable para demostración de patrones de resiliencia",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": ["microservices", "resilience", "payments"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

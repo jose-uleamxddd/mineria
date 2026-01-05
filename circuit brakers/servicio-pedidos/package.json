@@ -1,0 +1,20 @@
+{
+  "name": "servicio-pedidos",
+  "version": "1.0.0",
+  "description": "Servicio de gestión de pedidos",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": ["microservices", "orders"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "axios": "^1.6.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
